@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+build/
+dist/
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.class
+bin/
+.gradle/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+
+# Environment
+.env
+.env.local

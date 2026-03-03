@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Build artifacts
+build/
+dist/
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.class
+*.war
+*.ear
+bin/
+.gradle/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.settings/
+.classpath
+.project
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python installed packages (should be installed via pip)
+python-service/botocore/
+python-service/dateutil/
+python-service/dotenv/
+python-service/jmespath/
+python-service/psycopg2/
+python-service/s3transfer/
+python-service/six.py
+python-service/bin/
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
