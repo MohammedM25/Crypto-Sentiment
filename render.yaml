@@ -9,10 +9,11 @@ databases:
     databaseName: crypto_sentiment
 
 services:
-  # Backend (Java Spring Boot) - Docker build
+  # Backend (Java Spring Boot) - Docker build (free tier: spins down after 15 min idle)
   - type: web
     name: crypto-backend
     runtime: docker
+    plan: free
     region: ohio
     rootDir: crypto-sentiment/backend/crypto-backend
     dockerfilePath: crypto-sentiment/backend/crypto-backend/Dockerfile
