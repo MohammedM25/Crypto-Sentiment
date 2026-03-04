@@ -16,8 +16,8 @@ services:
     plan: free
     region: ohio
     rootDir: crypto-sentiment/backend/crypto-backend
-    dockerfilePath: crypto-sentiment/backend/crypto-backend/Dockerfile
-    dockerContext: crypto-sentiment/backend/crypto-backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     healthCheckPath: /health
     envVars:
       - key: SPRING_PROFILES_ACTIVE
