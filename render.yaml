@@ -13,7 +13,6 @@ services:
   - type: web
     name: crypto-backend
     runtime: docker
-    plan: free
     region: ohio
     rootDir: crypto-sentiment/backend/crypto-backend
     dockerfilePath: crypto-sentiment/backend/crypto-backend/Dockerfile
@@ -31,7 +30,6 @@ services:
   - type: web
     name: crypto-frontend
     runtime: static
-    plan: free
     rootDir: crypto-sentiment/frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: build
