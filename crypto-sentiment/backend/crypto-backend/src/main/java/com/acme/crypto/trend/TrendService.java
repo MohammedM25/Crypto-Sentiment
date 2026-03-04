@@ -170,5 +170,25 @@ public class TrendService {
     public void clearTrendsByTopic(String topic) {
         repo.deleteByTopicIgnoreCase(topic);
     }
-    
+
+    public int seedDemoData() {
+        String[] platforms = {"twitter", "reddit", "telegram"};
+        String[] topics = {"BTC", "ETH", "SOL", "DOGE", "XRP", "ADA"};
+        int count = 0;
+        Instant base = Instant.now().minus(24, java.time.temporal.ChronoUnit.HOURS);
+        for (int i = 0; i < 30; i++) {
+            String platform = platforms[i % platforms.length];
+            String topic = topics[i % topics.length];
+            double score = -0.5 + Math.random() * 1.5;
+            Trend t = new Trend();
+            t.setPlatform(platform);
+            t.setTopic(topic);
+            t.setScore(Math.round(score * 100.0) / 100.0);
+            t.setCapturedAt(base.plus(i * 48, java.time.temporal.ChronoUnit.MINUTES));
+            repo.save(t);
+            count++;
+        }
+        return count;
+    }
+
 }

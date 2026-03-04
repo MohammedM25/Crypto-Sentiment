@@ -1,7 +1,12 @@
-# Render Blueprint - Crypto Sentiment
-# Deploy: push this repo to GitHub, then in Render Dashboard:
-# New + → Blueprint → Connect repo → Select this repo → Apply
-# Then set secret env vars in the Dashboard (RDS_*, AWS_*) for crypto-backend.
+# Render Blueprint - Crypto Sentiment (no AWS required)
+# Deploy: push to GitHub, then Render Dashboard → New + → Blueprint → Connect repo → Apply
+# Database and backend are created automatically. After deploy, call POST /api/trends/seed to add demo data.
+
+databases:
+  - name: crypto-sentiment-db
+    plan: free
+    region: ohio
+    databaseName: crypto_sentiment
 
 services:
   # Backend (Java Spring Boot) - Docker build
@@ -17,18 +22,12 @@ services:
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
-      - key: RDS_PORT
-        value: "5432"
-      - key: RDS_HOSTNAME
-        sync: false
-      - key: RDS_DB_NAME
-        sync: false
-      - key: RDS_USERNAME
-        sync: false
-      - key: RDS_PASSWORD
-        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: crypto-sentiment-db
+          property: connectionString
 
-  # Frontend (React static site) - optional; you can keep using Vercel instead
+  # Frontend (React static site)
   - type: web
     name: crypto-frontend
     runtime: static
@@ -37,6 +36,6 @@ services:
     buildCommand: npm ci && npm run build
     staticPublishPath: build
     envVars:
-      # Set in Dashboard to your backend URL, e.g. https://crypto-backend.onrender.com
+      # Set in Dashboard after deploy: https://crypto-backend.onrender.com/api (or your backend URL)
       - key: REACT_APP_API_URL
         sync: false
