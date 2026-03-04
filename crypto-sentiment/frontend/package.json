@@ -50,8 +50,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@vercel/node": "^5.5.5",
-    "vercel": "^48.2.9"
-  }
+  "devDependencies": {}
 }

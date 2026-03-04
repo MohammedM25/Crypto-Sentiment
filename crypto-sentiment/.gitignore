@@ -34,16 +34,6 @@ bin/
 .DS_Store
 Thumbs.db
 
-# Python installed packages (should be installed via pip)
-python-service/botocore/
-python-service/dateutil/
-python-service/dotenv/
-python-service/jmespath/
-python-service/psycopg2/
-python-service/s3transfer/
-python-service/six.py
-python-service/bin/
-
 # Logs
 *.log
 

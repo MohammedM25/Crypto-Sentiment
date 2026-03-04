@@ -392,7 +392,7 @@ function App() {
                 <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   Crypto Sentiment
                 </h1>
-                <p className="text-xs text-gray-500">AI-Powered Market Analysis</p>
+                <p className="text-xs text-gray-500">Real-time Market Analysis</p>
               </div>
             </div>
 
