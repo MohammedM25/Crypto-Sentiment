@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Configures DataSource from DATABASE_URL (Render/Heroku format) when present.
@@ -35,6 +37,10 @@ public class DataSourceConfig {
                 int colonIdx = userInfo.indexOf(':');
                 user = colonIdx >= 0 ? userInfo.substring(0, colonIdx) : userInfo;
                 password = colonIdx >= 0 ? userInfo.substring(colonIdx + 1) : "";
+                try {
+                    user = URLDecoder.decode(user, StandardCharsets.UTF_8);
+                    password = URLDecoder.decode(password, StandardCharsets.UTF_8);
+                } catch (Exception ignored) { }
             }
 
             HikariDataSource ds = new HikariDataSource();
