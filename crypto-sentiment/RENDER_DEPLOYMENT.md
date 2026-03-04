@@ -21,18 +21,13 @@ This project runs entirely on Render—no AWS account needed. Render provides a 
 
 ---
 
-## Step 2: Add demo data
+## Step 2: Add data
 
-The database starts empty. To add sample trends so the dashboard has data:
+**Option A – Demo data (instant)**  
+Visit: `https://crypto-backend.onrender.com/api/trends/seed`
 
-1. Open your backend URL: `https://crypto-backend.onrender.com` (or the URL Render shows).
-
-2. Visit the seed endpoint in your browser (or use curl):
-   ```
-   https://crypto-backend.onrender.com/api/trends/seed
-   ```
-
-3. You should see: `{"message":"Seeded 30 demo trends","timestamp":"..."}`
+**Option B – Real news data (scraper)**  
+The backend scrapes crypto news from CoinDesk, Cointelegraph, and CryptoNews every 2 hours. To run it immediately, visit: `https://crypto-backend.onrender.com/api/scrape`
 
 ---
 
