@@ -102,7 +102,7 @@ public class HealthController {
     @GetMapping("/api/test-data")
     public ResponseEntity<Map<String, Object>> getTestData() {
         Map<String, Object> data = new HashMap<>();
-        data.put("message", "Use POST /api/trends/seed to add demo data");
+        data.put("message", "Data comes from news RSS feeds. Visit /api/scrape to fetch latest.");
         data.put("timestamp", Instant.now().toString());
         data.put("status", "success");
         return ResponseEntity.ok(data);

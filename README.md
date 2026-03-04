@@ -45,14 +45,14 @@ cd crypto-sentiment/backend/crypto-backend && ./gradlew bootRun   # Terminal 1
 cd crypto-sentiment/frontend && npm install && npm start          # Terminal 2
 ```
 
-Add data: `http://localhost:8080/api/trends/seed` or `http://localhost:8080/api/scrape`
+Data auto-populates from news on startup. Manual trigger: `http://localhost:8080/api/scrape`
 
 ## 🚀 Deploy (Render)
 
 1. Push to GitHub
 2. [Render](https://render.com) → **New** → **Blueprint** → Connect repo → **Apply**
 3. Set `REACT_APP_API_URL` in frontend service
-4. Visit `/api/trends/seed` and `/api/scrape` to populate data
+4. Data populates from news on startup; hit `/api/scrape` to refresh
 
 ## 👨‍💻 Author
 

@@ -1,6 +1,6 @@
 # Render Blueprint - Crypto Sentiment (no AWS required)
 # Deploy: push to GitHub, then Render Dashboard → New + → Blueprint → Connect repo → Apply
-# Database and backend are created automatically. After deploy, call POST /api/trends/seed to add demo data.
+# Data populates from news RSS feeds on startup and every 2 hours.
 
 databases:
   - name: crypto-sentiment-db

@@ -74,13 +74,4 @@ public class TrendController {
         ));
     }
 
-    @RequestMapping(value = "/trends/seed", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<Map<String, Object>> seedDemoData() {
-        int count = svc.seedDemoData();
-        return ResponseEntity.ok(Map.of(
-            "message", "Seeded " + count + " demo trends",
-            "timestamp", Instant.now().toString()
-        ));
-    }
-
 }
