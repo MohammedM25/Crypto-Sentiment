@@ -62,16 +62,23 @@ public class NewsScraperService {
         Map.entry("apt", "APT")
     );
 
-    private static final Set<String> POSITIVE = Set.of(
-        "surge", "rally", "gain", "growth", "bullish", "breakthrough",
-        "adoption", "partnership", "launch", "upgrade", "success",
-        "moon", "pump", "hodl", "buy", "invest", "opportunity"
+    // Weighted keywords: stronger words move score more. Base = 50 (neutral), range 0-100.
+    private static final Map<String, Integer> POSITIVE_WEIGHTS = Map.ofEntries(
+        Map.entry("surge", 15), Map.entry("rally", 15), Map.entry("moon", 12), Map.entry("breakthrough", 14),
+        Map.entry("pump", 10), Map.entry("bullish", 12), Map.entry("gain", 10), Map.entry("growth", 10),
+        Map.entry("adoption", 10), Map.entry("partnership", 8), Map.entry("success", 10),
+        Map.entry("launch", 6), Map.entry("upgrade", 6), Map.entry("hodl", 4), Map.entry("buy", 5),
+        Map.entry("invest", 6), Map.entry("opportunity", 8), Map.entry("soar", 12),
+        Map.entry("record", 8), Map.entry("all-time high", 14), Map.entry("ath", 10)
     );
 
-    private static final Set<String> NEGATIVE = Set.of(
-        "crash", "drop", "fall", "bearish", "decline", "loss",
-        "hack", "scam", "rug", "ban", "regulation", "sell",
-        "dump", "fear", "risk", "warning", "concern"
+    private static final Map<String, Integer> NEGATIVE_WEIGHTS = Map.ofEntries(
+        Map.entry("crash", 15), Map.entry("hack", 14), Map.entry("scam", 14), Map.entry("rug", 14),
+        Map.entry("dump", 12), Map.entry("bearish", 12), Map.entry("drop", 10), Map.entry("fall", 10),
+        Map.entry("ban", 12), Map.entry("regulation", 8), Map.entry("decline", 8),
+        Map.entry("loss", 10), Map.entry("sell", 6), Map.entry("fear", 8), Map.entry("risk", 6),
+        Map.entry("warning", 8), Map.entry("concern", 6), Map.entry("collapse", 14),
+        Map.entry("plunge", 12), Map.entry("lawsuit", 10), Map.entry("fraud", 12)
     );
 
     @Autowired
@@ -160,14 +167,19 @@ public class NewsScraperService {
         return null;
     }
 
+    /** Returns sentiment 0-100: 50=neutral, higher=positive, lower=negative. */
     private double sentimentScore(String text) {
         String lower = text.toLowerCase();
-        int pos = 0, neg = 0;
-        for (String w : POSITIVE) if (lower.contains(w)) pos++;
-        for (String w : NEGATIVE) if (lower.contains(w)) neg++;
-        int total = pos + neg;
-        if (total == 0) return 0.0;
-        return (pos - neg) / (double) total;
+        int posSum = 0, negSum = 0;
+        for (Map.Entry<String, Integer> e : POSITIVE_WEIGHTS.entrySet()) {
+            if (lower.contains(e.getKey())) posSum += e.getValue();
+        }
+        for (Map.Entry<String, Integer> e : NEGATIVE_WEIGHTS.entrySet()) {
+            if (lower.contains(e.getKey())) negSum += e.getValue();
+        }
+        int delta = posSum - negSum;
+        double score = 50.0 + delta;
+        return Math.max(0.0, Math.min(100.0, Math.round(score * 10.0) / 10.0));
     }
 
     private record ScrapedItem(String title, String description, String source) {}
